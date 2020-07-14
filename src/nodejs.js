@@ -93,7 +93,7 @@ const decodings = res => {
   }
 }
 
-const mkrequest = (statusCodes, method, encoding, headers, baseurl) => (_url, body = null, _headers = {}) => {
+const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body = null, _headers = {}, delay = 0, delayFunc) => {
   _url = baseurl + (_url || '')
   const parsed = new URL(_url)
   let h
@@ -123,7 +123,7 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => (_url, bo
   if (!c.has('accept-encoding')) {
     c.set('accept-encoding', acceptEncoding)
   }
-  return new Promise((resolve, reject) => {
+  const reqPromise = new Promise((resolve, reject) => {
     const req = h.request(request, async res => {
       res = getResponse(res)
       res.on('error', reject)
@@ -173,6 +173,12 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => (_url, bo
       req.end()
     }
   })
+
+  if (delayFunc) {
+    delayFunc()
+  }
+  await new Promise(resolve => setTimeout(resolve, delay))
+  return await reqPromise
 }
 
 module.exports = bent(mkrequest)

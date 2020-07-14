@@ -31,7 +31,7 @@ class StatusError extends Error {
   }
 }
 
-const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body, _headers = {}) => {
+const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body, _headers = {}, delay = 0, delayFunc) => {
   _url = baseurl + (_url || '')
   let parsed = new URL(_url)
 
@@ -60,6 +60,10 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_u
 
   _headers = new Headers({ ...(headers || {}), ..._headers })
 
+  if (delayFunc) {
+    delayFunc()
+  }
+  await new Promise(resolve => setTimeout(resolve, delay))
   const resp = await fetch(parsed, { method, headers: _headers, body })
   resp.statusCode = resp.status
 

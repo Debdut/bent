@@ -9,7 +9,7 @@ Functional HTTP client for Node.js and Browsers w/ async/await.
 ## Usage
 
 ```javascript
-const bent = require('bent')
+const bent = require('@debdut/bent')
 
 const getJSON = bent('json')
 const getBuffer = bent('buffer')
@@ -36,7 +36,7 @@ In Node.js, we also add decoding methods that match the Fetch API (`.json()`,
 `.text()` and `.arrayBuffer()`).
 
 ```javascript
-const bent = require('bent')
+const bent = require('@debdut/bent')
 
 const getStream = bent('http://site.com')
 
@@ -70,13 +70,15 @@ The returned async function is used for subsequent requests.
 When working with Binary this library uses different types in the browser and Node.js. In Node.js all binary must be done
 using the `Buffer` type. In the browser you can use ArrayBuffer or any ArrayBuffer view type (UInt8Array, etc).
 
-### `async request(url[, body=null, headers={}])`
+### `async request(url[, body=null, headers={}, delay=0, delayFunc = () => ()])`
 
 * **url**: Fully qualified URL to the remote resource, or in the case that a
   base URL is passed the remaining URL string.
 * **body**: Request body. Can be a string, a stream (node.js), a buffer (node.js) (see note below),
   an ArrayBuffer (browser), or a JSON object.
 * **headers**: An object of any headers you need to set for just this request.
+* **delay** An Integer that counts the delay in milliseconds.
+* **delayFunc** A function that runs before delay.
 
 ```javascript
 const bent = require('bent')
