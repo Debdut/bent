@@ -123,6 +123,12 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_u
   if (!c.has('accept-encoding')) {
     c.set('accept-encoding', acceptEncoding)
   }
+  await new Promise(resolve => setTimeout(resolve, delayBefore))
+  if (delayFunc) {
+    delayFunc()
+  }
+  await new Promise(resolve => setTimeout(resolve, delayTotal - delayBefore))
+
   const reqPromise = new Promise((resolve, reject) => {
     const req = h.request(request, async res => {
       res = getResponse(res)
@@ -173,12 +179,6 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_u
       req.end()
     }
   })
-
-  await new Promise(resolve => setTimeout(resolve, delayBefore))
-  if (delayFunc) {
-    delayFunc()
-  }
-  await new Promise(resolve => setTimeout(resolve, delayTotal - delayBefore))
 
   const response = await reqPromise
 
