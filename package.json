@@ -11,8 +11,8 @@
     "coverage": "nyc --reporter=html mocha test/test-*.js && npx http-server coverage"
   },
   "keywords": [],
-  "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
-  "license": "Apache-2.0",
+  "author": "Debdut Karmakar <iawaiponly@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "bytesish": "^0.4.1",
     "caseless": "~0.12.0",
@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikeal/bent.git"
+    "url": "git+https://github.com/debdut/bent.git"
   },
   "bugs": {
-    "url": "https://github.com/mikeal/bent/issues"
+    "url": "https://github.com/debdut/bent/issues"
   },
-  "homepage": "https://github.com/mikeal/bent#readme",
+  "homepage": "https://github.com/debdut/bent#readme",
   "directories": {
     "test": "test"
   }
