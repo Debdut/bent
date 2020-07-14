@@ -93,7 +93,7 @@ const decodings = res => {
   }
 }
 
-const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body = null, _headers = {}, delay = 0, delayFunc) => {
+const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body = null, _headers = {}, delayTotal = 0, delayFunc, delayBefore = 0, finallyFunc) => {
   _url = baseurl + (_url || '')
   const parsed = new URL(_url)
   let h
@@ -174,11 +174,19 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_u
     }
   })
 
+  await new Promise(resolve => setTimeout(resolve, delayBefore))
   if (delayFunc) {
     delayFunc()
   }
-  await new Promise(resolve => setTimeout(resolve, delay))
-  return await reqPromise
+  await new Promise(resolve => setTimeout(resolve, delayTotal - delayBefore))
+
+  const response = await reqPromise
+
+  if (finallyFunc) {
+    finallyFunc(response)
+  }
+  
+  return response
 }
 
 module.exports = bent(mkrequest)

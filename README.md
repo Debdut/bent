@@ -1,6 +1,8 @@
-# bent
+# @debdut/bent
 
 ![2377](https://img.shields.io/badge/compiled%20bundle-2k-brightgreen) ![1106](https://img.shields.io/badge/gzipped%20bundle-1k-brightgreen)
+
+A better bent with HTTP2 support and delay functions.
 
 Functional HTTP client for Node.js and Browsers w/ async/await.
 
@@ -18,12 +20,8 @@ let obj = await getJSON('http://site.com/json.api')
 let buffer = await getBuffer('http://site.com/image.png')
 ```
 
-As you can see, bent is a function that returns an async function.
-
-Bent takes options which constrain what is accepted by the client.
-Any response that falls outside the constraints will generate an error.
-
 You can provide these options in any order, and Bent will figure out which option is which by inspecting the option's type and content.
+
 ```javascript
 const post = bent('http://localhost:3000/', 'POST', 'json', 200);
 const response = await post('cars/new', {name: 'bmw', wheels: 4});

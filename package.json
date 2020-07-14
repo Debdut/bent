@@ -5,8 +5,8 @@
   "main": "src/nodejs.js",
   "browser": "src/browser.js",
   "scripts": {
-    "test:node": "hundreds mocha --timeout=5000 test/test-delay.js",
-    "test:browser": "polendina --cleanup --service-worker --worker test/test-delay.js",
+    "test:node": "hundreds mocha --timeout=5000 test/test-*.js",
+    "test:browser": "polendina --cleanup --service-worker --worker test/test-*.js",
     "test": "npm run test:node && npm run test:browser",
     "coverage": "nyc --reporter=html mocha test/test-*.js && npx http-server coverage"
   },

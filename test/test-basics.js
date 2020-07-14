@@ -24,6 +24,12 @@ test('basic 200 ok', async () => {
   same(str, 'ok')
 })
 
+test('Wait 2s', async () => {
+  const request = bent('string')
+  const str = await request(u('/echo.js?body=ok'), null, {}, 2000, () => console.log('Waiting 2s'))
+  same(str, 'ok')
+})
+
 test('basic 200 ok baseurl', async () => {
   const request = bent('string', baseurl)
   const str = await request('/echo.js?body=ok')
