@@ -60,7 +60,7 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_u
 
   _headers = new Headers({ ...(headers || {}), ..._headers })
 
-  await ew Promise(resolve => setTimeout(resolve, delayBefore))
+  await new Promise(resolve => setTimeout(resolve, delayBefore))
   if (delayFunc) {
     delayFunc()
   }
